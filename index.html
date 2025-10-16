@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Multi Countdown Timer</title>
+    <title>SJTU Countdown Timer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -74,7 +74,8 @@
 </head>
 
 <body>
-    <h1 id="title">Countdown Timer</h1>
+    <h1 id="title">自主传球计时器</h1>
+    <!-- <h1 id="title">自主投篮计时器</h1> -->
     <div id="timer">00:00</div>
     <div>
         <button id="startBtn">Start</button>
@@ -85,13 +86,14 @@
 
     <script>
         const sequences = [
-            { title: "进场准备时间", duration: 9 },
-            { title: "第一回合", duration: 9 },
-            { title: "准备时间", duration: 6 },
-            { title: "第二回合", duration: 9 },
-            { title: "准备时间", duration: 6 },
-            { title: "第三回合", duration: 9 },
-            { title: "退场时间", duration: 6 }
+            { title: "进场准备时间", duration: 90 },
+            { title: "第一回合", duration: 90 },
+            // { title: "第一回合", duration: 120 },
+            { title: "准备时间", duration: 60 },
+            { title: "第二回合", duration: 120 },
+            { title: "准备时间", duration: 60 },
+            { title: "第三回合", duration: 120 },
+            { title: "退场时间", duration: 60 }
         ]; // 多个倒计时（秒）
         let current = 0;
         let remaining = sequences[current].duration;
@@ -185,7 +187,7 @@
             current = 0;
             remaining = sequences[current].duration;
             isPaused = false;
-            titleEl.textContent = "自主传球倒计时";
+            titleEl.textContent = "自主传球计时器";
             // titleEl.textContent = "自主投篮倒计时";
             updateTimerDisplay();
             updateButtons("ready");
@@ -193,6 +195,7 @@
 
         updateTimerDisplay();
         updateButtons("ready");
+        
     </script>
 </body>
 
