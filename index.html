@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #0d1117;
+            color: #e6edf3;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 6vw;
+        }
+
+        #timer {
+            font-size: 15vw;
+            margin: 20px 0;
+        }
+
+        button {
+            width: 200px;
+            /* 固定宽度 */
+            height: 70px;
+            /* 固定高度 */
+            font-size: 1.5em;
+            /* 字体大小固定 */
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            /* 文本居中 */
+            line-height: 70px;
+            /* 让文本垂直居中 */
+            transition: 0.3s;
+        }
+
+        button:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        #startBtn {
+            background: #28a745;
+            color: white;
+        }
+
+        #pauseBtn {
+            background: #d9534f;
+            color: white;
+        }
+
+        #resumeBtn {
+            background: #007bff;
+            color: white;
+        }
+
+        #resetBtn {
+            background: #ffc107;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="title">Countdown Timer</h1>
+    <div id="timer">00:00</div>
+    <div>
+        <button id="startBtn">Start</button>
+        <button id="pauseBtn" disabled>Pause</button>
+        <button id="resumeBtn" style="display:none;">Resume</button>
+        <button id="resetBtn" style="display:none;">Reset</button>
+    </div>
+
+    <script>
+        const sequences = [
+            { title: "进场准备时间", duration: 9 },
+            { title: "第一回合", duration: 9 },
+            { title: "准备时间", duration: 6 },
+            { title: "第二回合", duration: 9 },
+            { title: "准备时间", duration: 6 },
+            { title: "第三回合", duration: 9 },
+            { title: "退场时间", duration: 6 }
+        ]; // 多个倒计时（秒）
+        let current = 0;
+        let remaining = sequences[current].duration;
+        let interval = null;
+        let isPaused = false;
+
+        const titleEl = document.getElementById("title");
+        const timerEl = document.getElementById("timer");
+        const startBtn = document.getElementById("startBtn");
+        const pauseBtn = document.getElementById("pauseBtn");
+        const resumeBtn = document.getElementById("resumeBtn");
+        const resetBtn = document.getElementById("resetBtn");
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(remaining / 60);
+            const secs = remaining % 60;
+            timerEl.textContent = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+        }
+
+        function updateButtons(state) {
+            if (state === "ready") {
+                startBtn.disabled = false;
+                pauseBtn.disabled = true;
+                startBtn.style.display = "inline-block";
+                pauseBtn.style.display = "inline-block";
+                resumeBtn.style.display = "none";
+                resetBtn.style.display = "none";
+            } else if (state === "running") {
+                startBtn.disabled = true;
+                pauseBtn.disabled = false;
+                startBtn.style.display = "inline-block";
+                pauseBtn.style.display = "inline-block";
+                resumeBtn.style.display = "none";
+                resetBtn.style.display = "none";
+            } else if (state === "paused") {
+                startBtn.style.display = "none";
+                pauseBtn.style.display = "none";
+                resumeBtn.style.display = "inline-block";
+                resetBtn.style.display = "inline-block";
+            } else if (state === "finished") {
+                resumeBtn.disabled = true;
+                resetBtn.disabled = false;
+                startBtn.style.display = "none";
+                pauseBtn.style.display = "none";
+                resumeBtn.style.display = "inline-block";
+                resetBtn.style.display = "inline-block";
+            }
+        }
+
+        function startTimer() {
+            titleEl.textContent = sequences[current].title;
+            updateButtons("running");
+            interval = setInterval(() => {
+                if (!isPaused) {
+                    remaining--;
+                    updateTimerDisplay();
+                    if (remaining <= 0) {
+                        clearInterval(interval);
+                        current++;
+                        if (current < sequences.length) {
+                            remaining = sequences[current].duration;
+                            startTimer();
+                        } else {
+                            titleEl.textContent = "比赛结束!";
+                            updateButtons("finished");
+                        }
+                    }
+                }
+            }, 1000);
+        }
+
+        startBtn.addEventListener("click", () => {
+            startBtn.disabled = true;
+            startTimer();
+        });
+
+        pauseBtn.addEventListener("click", () => {
+            isPaused = true;
+            updateButtons("paused");
+            clearInterval(interval);
+        });
+
+        resumeBtn.addEventListener("click", () => {
+            isPaused = false;
+            updateButtons("running");
+            startTimer();
+        });
+
+        resetBtn.addEventListener("click", () => {
+            clearInterval(interval);
+            current = 0;
+            remaining = sequences[current].duration;
+            isPaused = false;
+            titleEl.textContent = "自主传球倒计时";
+            // titleEl.textContent = "自主投篮倒计时";
+            updateTimerDisplay();
+            updateButtons("ready");
+        });
+
+        updateTimerDisplay();
+        updateButtons("ready");
+    </script>
+</body>
+
+</html>
