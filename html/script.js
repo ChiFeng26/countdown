@@ -4,23 +4,23 @@ const storageKey = `countdownState_${id}`;
 let sequences;
 if (id === "pass") {
     sequences = [
-        { title: "进场准备时间", duration: 9 },
-        { title: "第一回合", duration: 9 },
-        { title: "第二回合准备时间", duration: 6 },
-        { title: "第二回合", duration: 12 },
-        { title: "第三回合准备时间", duration: 6 },
-        { title: "第三回合", duration: 12 },
-        { title: "退场时间", duration: 6 }
+        { title: "进场准备时间", duration: 90 },
+        { title: "第一回合", duration: 90 },
+        { title: "第二回合准备时间", duration: 60 },
+        { title: "第二回合", duration: 120 },
+        { title: "第三回合准备时间", duration: 60 },
+        { title: "第三回合", duration: 120 },
+        { title: "退场时间", duration: 60 }
     ];
 } else if (id === "shoot") {
     sequences = [
-        { title: "进场准备时间", duration: 9 },
-        { title: "第一回合", duration: 12 },
-        { title: "第二回合准备时间", duration: 6 },
-        { title: "第二回合", duration: 12 },
-        { title: "第三回合准备时间", duration: 6 },
-        { title: "第三回合", duration: 12 },
-        { title: "退场时间", duration: 6 }
+        { title: "进场准备时间", duration: 90 },
+        { title: "第一回合", duration: 120 },
+        { title: "第二回合准备时间", duration: 60 },
+        { title: "第二回合", duration: 120 },
+        { title: "第三回合准备时间", duration: 60 },
+        { title: "第三回合", duration: 120 },
+        { title: "退场时间", duration: 60 }
     ];
 } else {
     sequences = [{ title: "默认阶段", duration: 10 }];
@@ -46,7 +46,7 @@ const resumeBtn = document.getElementById("resumeBtn");
 const resetBtn = document.getElementById("resetBtn");
 
 function updateTimerDisplay() {
-    const mins = Math.floor(remaining / 60);
+    const mins = Math.floor(0 / 60);
     const secs = remaining % 60;
     timerEl.textContent = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
