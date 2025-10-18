@@ -39,7 +39,8 @@
 </head>
 <body>
 
-<h1 id="title">自主传球计时器</h1>
+<!-- <h1 id="title">自主传球计时器</h1> -->
+<h1 id="title">自主投篮计时器</h1>
 <div id="timer">00:00</div>
 <div>
     <button id="startBtn">Start</button>
@@ -51,7 +52,8 @@
 <script>
 const sequences = [
     { title: "进场准备时间", duration: 90 },
-    { title: "第一回合", duration: 90 },
+    // { title: "第一回合", duration: 90 },
+    { title: "第一回合", duration: 120 },
     { title: "准备时间", duration: 60 },
     { title: "第二回合", duration: 120 },
     { title: "准备时间", duration: 60 },
@@ -63,7 +65,8 @@ let current = 0;
 let remaining = sequences[current].duration;
 let interval = null;
 let isPaused = false;
-const defaultTitle = "自主传球计时器";
+// const defaultTitle = "自主传球计时器";
+const defaultTitle = "自主投篮计时器";
 
 const titleEl = document.getElementById("title");
 const timerEl = document.getElementById("timer");
