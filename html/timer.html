@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SJTU Countdown Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #0d1117;
+      color: #e6edf3;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    h1 {
+      font-size: 6vw;
+    }
+    #timer {
+      font-size: 15vw;
+      margin: 20px 0;
+    }
+    button {
+      width: 200px;
+      height: 70px;
+      font-size: 1.5em;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 70px;
+      transition: 0.3s;
+    }
+
+    button:disabled {
+      background: #444;
+      color: #888;
+      cursor: not-allowed;
+    }
+
+    #startBtn {
+      background: #28a745;
+      color: white;
+    }
+
+    #pauseBtn {
+      background: #d9534f;
+      color: white;
+    }
+
+    #resumeBtn {
+      background: #007bff;
+      color: white;
+    }
+
+    #resetBtn {
+      background: #ffc107;
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <button id="backBtn" onclick="location.href='index.html'">返回菜单</button>
+  <h1 id="title"></h1>
+  <script>
+    // 获取当前页面 URL
+    const url = window.location.href;
+    const title = document.getElementById("title");
+    // 判断 URL 中包含的关键字来决定标题和样式
+    if (url.includes("pass")) {
+      title.textContent = "自主传球计时器";
+      title.classList.add("pass");
+    } else if (url.includes("shoot")) {
+      title.textContent = "自主投篮计时器";
+      title.classList.add("shoot");
+    } else {
+      title.textContent = "计时器";
+    }
+  </script>
+  <div id="timer">00:00</div>
+  <div>
+    <button id="startBtn">Start</button>
+    <button id="pauseBtn" disabled>Pause</button>
+    <button id="resumeBtn" style="display:none;">Resume</button>
+    <button id="resetBtn" style="display:none;">Reset</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
