@@ -46,7 +46,7 @@ const resumeBtn = document.getElementById("resumeBtn");
 const resetBtn = document.getElementById("resetBtn");
 
 function updateTimerDisplay() {
-    const mins = Math.floor(0 / 60);
+    const mins = Math.floor(remaining / 60);
     const secs = remaining % 60;
     timerEl.textContent = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
